@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python - A Linguagem de Programação</title>
+    <title>Análise de Dados com Python - Ciência de Dados</title>
     <style>
         * {
             margin: 0;
@@ -15,26 +15,74 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            min-height: 100vh;
         }
 
         header {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             color: white;
             text-align: center;
-            padding: 3rem 2rem;
-            backdrop-filter: blur(10px);
+            padding: 4rem 2rem;
+            backdrop-filter: blur(15px);
+            border-bottom: 3px solid #7e22ce;
         }
 
         header h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-top: 1rem;
+        }
+
+        .icons {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #a78bfa;
         }
 
         .container {
@@ -45,221 +93,532 @@
 
         .card {
             background: white;
-            border-radius: 15px;
-            padding: 2rem;
+            border-radius: 20px;
+            padding: 2.5rem;
             margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
         }
 
         .card h2 {
-            color: #667eea;
-            margin-bottom: 1rem;
-            font-size: 2rem;
-            border-left: 4px solid #667eea;
+            color: #1e3c72;
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+            border-left: 5px solid #7e22ce;
             padding-left: 1rem;
         }
 
         .card h3 {
-            color: #764ba2;
+            color: #7e22ce;
             margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
         }
 
-        .features {
+        .libraries {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-top: 1rem;
+            margin-top: 2rem;
         }
 
-        .feature-box {
+        .lib-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
             transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .feature-box:hover {
+        .lib-card:hover {
             transform: scale(1.05);
         }
 
-        .feature-box h4 {
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
+        .lib-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .lib-card ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .lib-card li::before {
+            content: "✓ ";
+            font-weight: bold;
+            margin-right: 0.5rem;
         }
 
         .code-example {
-            background: #2d2d2d;
-            color: #f8f8f2;
+            background: #1e1e1e;
+            color: #d4d4d4;
             padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1rem 0;
+            border-radius: 12px;
+            margin: 1.5rem 0;
             overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            border-left: 4px solid #667eea;
+            font-family: 'Consolas', 'Courier New', monospace;
+            border-left: 5px solid #7e22ce;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .code-example code {
             display: block;
             white-space: pre;
+            font-size: 0.95rem;
         }
 
-        footer {
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-            text-align: center;
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .function { color: #dcdcaa; }
+        .comment { color: #6a9955; }
+
+        .pipeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
             padding: 2rem;
-            margin-top: 2rem;
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border-radius: 15px;
         }
 
-        .logo {
-            font-size: 4rem;
-            margin-bottom: 1rem;
+        .pipeline-step {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .pipeline-step:hover {
+            transform: translateY(-5px);
+        }
+
+        .pipeline-step .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pipeline-arrow {
+            font-size: 2rem;
+            color: #7e22ce;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .tool-item {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .tool-item:hover {
+            transform: scale(1.05);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 5px solid #f59e0b;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box strong {
+            color: #92400e;
         }
 
         ul {
             margin-left: 2rem;
-            margin-top: 0.5rem;
+            margin-top: 1rem;
         }
 
         li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
         }
 
-        a {
-            color: #667eea;
+        footer {
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            text-align: center;
+            padding: 2.5rem;
+            margin-top: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 1rem;
         }
 
-        a:hover {
-            color: #764ba2;
-            text-decoration: underline;
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .pipeline {
+                flex-direction: column;
+            }
+            
+            .pipeline-arrow {
+                transform: rotate(90deg);
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">🐍</div>
-        <h1>Python</h1>
-        <p>A linguagem de programação mais versátil do mundo</p>
+        <div class="icons">
+            <span>📊</span>
+            <span>🐍</span>
+            <span>🔬</span>
+        </div>
+        <h1>Análise de Dados com Python</h1>
+        <p>Transforme dados em insights poderosos usando as melhores ferramentas</p>
     </header>
 
+    <nav>
+        <ul>
+            <li><a href="#intro">Introdução</a></li>
+            <li><a href="#bibliotecas">Bibliotecas</a></li>
+            <li><a href="#pipeline">Pipeline</a></li>
+            <li><a href="#exemplos">Exemplos</a></li>
+            <li><a href="#recursos">Recursos</a></li>
+        </ul>
+    </nav>
+
     <div class="container">
-        <div class="card">
-            <h2>O que é Python?</h2>
-            <p>Python é uma linguagem de programação de alto nível, interpretada e de propósito geral. Criada por Guido van Rossum e lançada em 1991, Python enfatiza a legibilidade do código e permite que os programadores expressem conceitos em menos linhas de código comparado a outras linguagens.</p>
-            <p>Com uma filosofia de design que prioriza a simplicidade e a clareza, Python se tornou uma das linguagens mais populares do mundo, sendo amplamente utilizada em desenvolvimento web, ciência de dados, inteligência artificial, automação e muito mais.</p>
-        </div>
-
-        <div class="card">
-            <h2>Características Principais</h2>
-            <div class="features">
-                <div class="feature-box">
-                    <h4>📖 Simples e Legível</h4>
-                    <p>Sintaxe clara e intuitiva, ideal para iniciantes</p>
-                </div>
-                <div class="feature-box">
-                    <h4>🔧 Versátil</h4>
-                    <p>Pode ser usado em diversos tipos de projetos</p>
-                </div>
-                <div class="feature-box">
-                    <h4>📚 Rico em Bibliotecas</h4>
-                    <p>Milhares de pacotes disponíveis</p>
-                </div>
-                <div class="feature-box">
-                    <h4>🌍 Multiplataforma</h4>
-                    <p>Funciona em Windows, Mac e Linux</p>
-                </div>
-                <div class="feature-box">
-                    <h4>👥 Grande Comunidade</h4>
-                    <p>Suporte ativo e documentação extensa</p>
-                </div>
-                <div class="feature-box">
-                    <h4>🆓 Gratuito e Open Source</h4>
-                    <p>Código aberto e livre para usar</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Exemplo de Código</h2>
-            <p>Veja como é simples programar em Python:</p>
+        <div class="card" id="intro">
+            <h2>O que é Análise de Dados?</h2>
+            <p>A análise de dados é o processo de inspecionar, limpar, transformar e modelar dados com o objetivo de descobrir informações úteis, tirar conclusões e apoiar a tomada de decisões. Python se tornou a linguagem dominante nesta área devido à sua simplicidade e ao vasto ecossistema de bibliotecas especializadas.</p>
             
-            <h3>Hello World</h3>
-            <div class="code-example">
-<code>print("Hello, World!")</code>
+            <div class="highlight-box">
+                <strong>💡 Por que Python?</strong><br>
+                Python oferece uma combinação única de facilidade de uso, poder computacional e uma comunidade ativa que constantemente desenvolve novas ferramentas para análise de dados, machine learning e visualização.
             </div>
 
-            <h3>Calculando Fatorial</h3>
-            <div class="code-example">
-<code>def fatorial(n):
-    if n == 0 or n == 1:
-        return 1
-    else:
-        return n * fatorial(n - 1)
-
-numero = 5
-resultado = fatorial(numero)
-print(f"O fatorial de {numero} é {resultado}")</code>
-            </div>
-
-            <h3>Trabalhando com Listas</h3>
-            <div class="code-example">
-<code>frutas = ["maçã", "banana", "laranja", "uva"]
-
-for fruta in frutas:
-    print(f"Eu gosto de {fruta}")
-
-# List comprehension
-numeros_pares = [x for x in range(10) if x % 2 == 0]
-print(numeros_pares)</code>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Áreas de Aplicação</h2>
+            <h3>Principais Aplicações</h3>
             <ul>
-                <li><strong>Desenvolvimento Web:</strong> Django, Flask, FastAPI</li>
-                <li><strong>Ciência de Dados:</strong> Pandas, NumPy, Matplotlib</li>
-                <li><strong>Inteligência Artificial:</strong> TensorFlow, PyTorch, scikit-learn</li>
-                <li><strong>Automação e Scripts:</strong> Selenium, Beautiful Soup</li>
-                <li><strong>Desenvolvimento de Jogos:</strong> Pygame</li>
-                <li><strong>Aplicações Desktop:</strong> Tkinter, PyQt</li>
-                <li><strong>Internet das Coisas (IoT):</strong> MicroPython, CircuitPython</li>
+                <li><strong>Business Intelligence:</strong> Análise de vendas, comportamento de clientes, KPIs</li>
+                <li><strong>Análise Financeira:</strong> Previsão de mercado, análise de risco, portfolios</li>
+                <li><strong>Saúde:</strong> Análise de dados clínicos, epidemiologia, pesquisa médica</li>
+                <li><strong>Marketing:</strong> Segmentação de clientes, análise de campanhas, ROI</li>
+                <li><strong>Pesquisa Científica:</strong> Análise estatística, experimentos, publicações</li>
+                <li><strong>IoT e Sensores:</strong> Análise de séries temporais, monitoramento em tempo real</li>
             </ul>
         </div>
 
-        <div class="card">
-            <h2>Por que Aprender Python?</h2>
-            <p>Python é uma excelente escolha tanto para iniciantes quanto para programadores experientes. Sua sintaxe clara facilita o aprendizado, enquanto suas capacidades avançadas permitem construir aplicações complexas e poderosas.</p>
-            <p>Empresas como Google, Netflix, Instagram, Spotify e NASA utilizam Python em suas operações diárias, o que demonstra a robustez e confiabilidade da linguagem em ambientes de produção.</p>
-            <p>Além disso, o mercado de trabalho para desenvolvedores Python está em constante crescimento, com excelentes oportunidades em diversas áreas da tecnologia.</p>
+        <div class="card" id="bibliotecas">
+            <h2>Bibliotecas Essenciais</h2>
+            <p>O ecossistema Python oferece ferramentas poderosas para cada etapa da análise de dados:</p>
+            
+            <div class="libraries">
+                <div class="lib-card">
+                    <h4>📊 Pandas</h4>
+                    <p>Manipulação e análise de dados estruturados</p>
+                    <ul>
+                        <li>DataFrames e Series</li>
+                        <li>Limpeza de dados</li>
+                        <li>Agregações e transformações</li>
+                        <li>Leitura de CSV, Excel, SQL</li>
+                    </ul>
+                </div>
+
+                <div class="lib-card">
+                    <h4>🔢 NumPy</h4>
+                    <p>Computação numérica e arrays multidimensionais</p>
+                    <ul>
+                        <li>Arrays N-dimensionais</li>
+                        <li>Operações matemáticas</li>
+                        <li>Álgebra linear</li>
+                        <li>Performance otimizada</li>
+                    </ul>
+                </div>
+
+                <div class="lib-card">
+                    <h4>📈 Matplotlib</h4>
+                    <p>Visualização de dados estática</p>
+                    <ul>
+                        <li>Gráficos de linha, barra, pizza</li>
+                        <li>Histogramas e scatter plots</li>
+                        <li>Customização completa</li>
+                        <li>Exportação em alta qualidade</li>
+                    </ul>
+                </div>
+
+                <div class="lib-card">
+                    <h4>🎨 Seaborn</h4>
+                    <p>Visualizações estatísticas elegantes</p>
+                    <ul>
+                        <li>Gráficos estatísticos</li>
+                        <li>Temas e paletas</li>
+                        <li>Heatmaps e correlações</li>
+                        <li>Distribuições e regressões</li>
+                    </ul>
+                </div>
+
+                <div class="lib-card">
+                    <h4>📉 Plotly</h4>
+                    <p>Visualizações interativas e dashboards</p>
+                    <ul>
+                        <li>Gráficos interativos</li>
+                        <li>Dashboards web</li>
+                        <li>Mapas geográficos</li>
+                        <li>Animações</li>
+                    </ul>
+                </div>
+
+                <div class="lib-card">
+                    <h4>📊 Scikit-learn</h4>
+                    <p>Machine Learning e estatística</p>
+                    <ul>
+                        <li>Modelos preditivos</li>
+                        <li>Clustering e classificação</li>
+                        <li>Pré-processamento</li>
+                        <li>Validação de modelos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="pipeline">
+            <h2>Pipeline de Análise de Dados</h2>
+            <p>Um processo típico de análise de dados segue estas etapas:</p>
+            
+            <div class="pipeline">
+                <div class="pipeline-step">
+                    <div class="icon">📥</div>
+                    <h4>1. Coleta</h4>
+                    <p>Obter dados</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                
+                <div class="pipeline-step">
+                    <div class="icon">🧹</div>
+                    <h4>2. Limpeza</h4>
+                    <p>Tratar erros</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                
+                <div class="pipeline-step">
+                    <div class="icon">🔍</div>
+                    <h4>3. Exploração</h4>
+                    <p>Analisar padrões</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                
+                <div class="pipeline-step">
+                    <div class="icon">📊</div>
+                    <h4>4. Visualização</h4>
+                    <p>Criar gráficos</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                
+                <div class="pipeline-step">
+                    <div class="icon">🎯</div>
+                    <h4>5. Insights</h4>
+                    <p>Decisões</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="exemplos">
+            <h2>Exemplos Práticos de Código</h2>
+            
+            <h3>1. Carregar e Explorar Dados</h3>
+            <div class="code-example">
+<code><span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Carregar dados de um CSV</span>
+df = pd.<span class="function">read_csv</span>(<span class="string">'dados_vendas.csv'</span>)
+
+<span class="comment"># Visualizar as primeiras linhas</span>
+<span class="function">print</span>(df.<span class="function">head</span>())
+
+<span class="comment"># Informações sobre o dataset</span>
+<span class="function">print</span>(df.<span class="function">info</span>())
+
+<span class="comment"># Estatísticas descritivas</span>
+<span class="function">print</span>(df.<span class="function">describe</span>())</code>
+            </div>
+
+            <h3>2. Limpeza e Tratamento de Dados</h3>
+            <div class="code-example">
+<code><span class="comment"># Verificar valores ausentes</span>
+<span class="function">print</span>(df.<span class="function">isnull</span>().<span class="function">sum</span>())
+
+<span class="comment"># Remover duplicatas</span>
+df = df.<span class="function">drop_duplicates</span>()
+
+<span class="comment"># Preencher valores ausentes</span>
+df[<span class="string">'preco'</span>].<span class="function">fillna</span>(df[<span class="string">'preco'</span>].<span class="function">mean</span>(), inplace=<span class="keyword">True</span>)
+
+<span class="comment"># Remover outliers usando IQR</span>
+Q1 = df[<span class="string">'valor'</span>].<span class="function">quantile</span>(0.25)
+Q3 = df[<span class="string">'valor'</span>].<span class="function">quantile</span>(0.75)
+IQR = Q3 - Q1
+df = df[~((df[<span class="string">'valor'</span>] < (Q1 - 1.5 * IQR)) | (df[<span class="string">'valor'</span>] > (Q3 + 1.5 * IQR)))]</code>
+            </div>
+
+            <h3>3. Análise e Agregação</h3>
+            <div class="code-example">
+<code><span class="comment"># Agrupar por categoria e calcular estatísticas</span>
+vendas_por_categoria = df.<span class="function">groupby</span>(<span class="string">'categoria'</span>).<span class="function">agg</span>({
+    <span class="string">'valor'</span>: [<span class="string">'sum'</span>, <span class="string">'mean'</span>, <span class="string">'count'</span>],
+    <span class="string">'quantidade'</span>: <span class="string">'sum'</span>
+})
+
+<span class="comment"># Criar novas colunas calculadas</span>
+df[<span class="string">'total'</span>] = df[<span class="string">'preco'</span>] * df[<span class="string">'quantidade'</span>]
+df[<span class="string">'mes'</span>] = pd.<span class="function">to_datetime</span>(df[<span class="string">'data'</span>]).dt.month
+
+<span class="comment"># Filtrar dados</span>
+vendas_altas = df[df[<span class="string">'total'</span>] > 1000]</code>
+            </div>
+
+            <h3>4. Visualização de Dados</h3>
+            <div class="code-example">
+<code><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> seaborn <span class="keyword">as</span> sns
+
+<span class="comment"># Configurar estilo</span>
+sns.<span class="function">set_style</span>(<span class="string">'whitegrid'</span>)
+
+<span class="comment"># Gráfico de barras</span>
+plt.<span class="function">figure</span>(figsize=(10, 6))
+df.<span class="function">groupby</span>(<span class="string">'categoria'</span>)[<span class="string">'valor'</span>].<span class="function">sum</span>().<span class="function">plot</span>(kind=<span class="string">'bar'</span>)
+plt.<span class="function">title</span>(<span class="string">'Vendas por Categoria'</span>)
+plt.<span class="function">xlabel</span>(<span class="string">'Categoria'</span>)
+plt.<span class="function">ylabel</span>(<span class="string">'Valor Total'</span>)
+plt.<span class="function">show</span>()
+
+<span class="comment"># Heatmap de correlação</span>
+plt.<span class="function">figure</span>(figsize=(8, 6))
+sns.<span class="function">heatmap</span>(df.<span class="function">corr</span>(), annot=<span class="keyword">True</span>, cmap=<span class="string">'coolwarm'</span>)
+plt.<span class="function">title</span>(<span class="string">'Matriz de Correlação'</span>)
+plt.<span class="function">show</span>()</code>
+            </div>
+
+            <h3>5. Análise de Série Temporal</h3>
+            <div class="code-example">
+<code><span class="comment"># Converter coluna de data</span>
+df[<span class="string">'data'</span>] = pd.<span class="function">to_datetime</span>(df[<span class="string">'data'</span>])
+df.<span class="function">set_index</span>(<span class="string">'data'</span>, inplace=<span class="keyword">True</span>)
+
+<span class="comment"># Resample para frequência mensal</span>
+vendas_mensais = df[<span class="string">'valor'</span>].<span class="function">resample</span>(<span class="string">'M'</span>).<span class="function">sum</span>()
+
+<span class="comment"># Calcular média móvel</span>
+df[<span class="string">'media_movel_7d'</span>] = df[<span class="string">'valor'</span>].<span class="function">rolling</span>(window=7).<span class="function">mean</span>()
+
+<span class="comment"># Plotar série temporal</span>
+plt.<span class="function">figure</span>(figsize=(12, 6))
+plt.<span class="function">plot</span>(vendas_mensais)
+plt.<span class="function">title</span>(<span class="string">'Tendência de Vendas Mensais'</span>)
+plt.<span class="function">show</span>()</code>
+            </div>
         </div>
 
         <div class="card">
-            <h2>Recursos para Aprender</h2>
+            <h2>Ferramentas e Ambientes</h2>
+            <div class="tools-grid">
+                <div class="tool-item">Jupyter Notebook</div>
+                <div class="tool-item">Google Colab</div>
+                <div class="tool-item">VS Code</div>
+                <div class="tool-item">PyCharm</div>
+                <div class="tool-item">Anaconda</div>
+                <div class="tool-item">Kaggle</div>
+            </div>
+        </div>
+
+        <div class="card" id="recursos">
+            <h2>Recursos para Aprendizado</h2>
+            
+            <h3>📚 Documentação Oficial</h3>
             <ul>
-                <li><a href="https://www.python.org/" target="_blank">Site Oficial do Python</a></li>
-                <li><a href="https://docs.python.org/pt-br/" target="_blank">Documentação em Português</a></li>
-                <li><a href="https://wiki.python.org.br/" target="_blank">Python Brasil</a></li>
-                <li>Cursos online: Coursera, Udemy, YouTube</li>
-                <li>Livros: "Automatize Tarefas Maçantes com Python", "Python Fluente"</li>
+                <li>Pandas: pandas.pydata.org</li>
+                <li>NumPy: numpy.org</li>
+                <li>Matplotlib: matplotlib.org</li>
+                <li>Scikit-learn: scikit-learn.org</li>
             </ul>
+
+            <h3>🎓 Cursos e Tutoriais</h3>
+            <ul>
+                <li>DataCamp - Python para Data Science</li>
+                <li>Coursera - Applied Data Science with Python</li>
+                <li>Kaggle Learn - Pandas e Visualização</li>
+                <li>YouTube - Canais especializados em Python</li>
+            </ul>
+
+            <h3>📖 Livros Recomendados</h3>
+            <ul>
+                <li>"Python for Data Analysis" - Wes McKinney</li>
+                <li>"Hands-On Machine Learning" - Aurélien Géron</li>
+                <li>"Data Science do Zero" - Joel Grus</li>
+                <li>"Python Data Science Handbook" - Jake VanderPlas</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>🚀 Dica Pro:</strong> A melhor forma de aprender é praticando! Comece com datasets do Kaggle, participe de competições e construa seus próprios projetos de análise de dados.
+            </div>
+
+            <center>
+                <a href="#" class="btn">Começar a Aprender Agora</a>
+            </center>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2024 - Site Educacional sobre Python</p>
-        <p>Python é uma marca registrada da Python Software Foundation</p>
+        <p><strong>Análise de Dados com Python</strong></p>
+        <p>Transforme dados em decisões inteligentes</p>
+        <p>&copy; 2024 - Material Educacional sobre Ciência de Dados</p>
     </footer>
 </body>
 </html>
